@@ -15,7 +15,6 @@ const Items = () => {
 
   const openAddItem = () => {
     setSelectedItemId(NEW_ITEM_IDX);
-    console.log('Add', NEW_ITEM_IDX, selectedItemId);
   }
 
   const openEditItem = (id: number) => {

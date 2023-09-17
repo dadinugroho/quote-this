@@ -11,7 +11,7 @@ type ItemFormProps = {
 
 const ItemForm = ({ itemData, onSubmit }: ItemFormProps) => {
   if (!itemData) return null;
-  console.log(itemData);
+  
   const { handleSubmit, register, getValues, setValue } = useForm<Item>({ defaultValues: itemData });
 
   const formFields: FormField[] = [
