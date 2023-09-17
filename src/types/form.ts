@@ -1,6 +1,8 @@
 export enum FormFieldType {
   INPUT = 'input',
-  SWITCH = 'switch',
+  NUMBER = 'number',
+  TEXTAREA = 'textarea',
+  SWITCH = 'switch'
 }
 
 type FormFieldOption = {

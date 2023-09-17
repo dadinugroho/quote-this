@@ -57,7 +57,7 @@ export interface Database {
         }
         Insert: {
           code?: string
-          created_at: string
+          created_at?: string
           description?: string | null
           id?: number
           max_length?: number | null

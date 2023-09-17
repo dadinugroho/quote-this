@@ -4,6 +4,7 @@ import { FormField, FormFieldType } from "@/types/form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
 
 type FormFieldSheetGeneratorProps = {
   field: FormField;
@@ -15,6 +16,28 @@ const FormFieldSheetGenerator = ({ field, register, fieldValue }: FormFieldSheet
   let generatedField: ReactNode = null;
 
   switch (field.type) {
+    case FormFieldType.TEXTAREA: {
+      generatedField = (
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor={field.fieldName} className="text-right">
+            {field.label}
+          </Label>
+          <Textarea {...register(field.fieldName)} className="col-span-3" required />
+        </div>
+      );
+      break;
+    }
+    case FormFieldType.NUMBER: {
+      generatedField = (
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor={field.fieldName} className="text-right">
+            {field.label}
+          </Label>
+          <Input {...register(field.fieldName)} type="number" min="0" step="0.1" required />
+        </div>
+      );
+      break;
+    }
     case FormFieldType.SWITCH: {
       generatedField = (
         <div className="grid grid-cols-4 items-center gap-4">
