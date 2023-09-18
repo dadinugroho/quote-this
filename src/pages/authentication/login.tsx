@@ -4,9 +4,10 @@ import { useAuth } from "@/hooks/Auth";
 import { ModeToggle } from "@/components/themes/mode-toggle";
 import { Logo } from "@/components/logo";
 import { UserAuthForm } from "@/pages/authentication/components/user-auth-form";
+import { UserAuthOtpForm } from "./components/user-otp-auth-form";
 
 const Login = () => {
-  const { session, signIn } = useAuth();
+  const { session, signIn, signInOtp } = useAuth();
   const navigate = useNavigate();
 
   const signInUser = async (email: string, password: string) => {
@@ -14,6 +15,17 @@ const Login = () => {
       data: { user, session },
       error
     } = await signIn(email, password);
+
+    if (error) throw new Error(error.message);
+
+    if (user && session) navigate("/");
+  }
+
+  const signInUserOtp = async (email: string) => {
+    const {
+      data: { user, session },
+      error
+    } = await signInOtp(email);
 
     if (error) throw new Error(error.message);
 
@@ -53,6 +65,17 @@ const Login = () => {
               </p>
             </div>
             <UserAuthForm signInUser={signInUser} />
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+            <UserAuthOtpForm signInUserOtp={signInUserOtp} />
           </div>
         </div>
       </div>
