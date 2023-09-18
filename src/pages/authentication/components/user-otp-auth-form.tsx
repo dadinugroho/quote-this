@@ -5,6 +5,7 @@ import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { AlertDefault } from "@/components/alerts/alert-default";
 
 interface UserAuthOtpFormProps extends React.HTMLAttributes<HTMLDivElement> {
   signInUserOtp: (email: string) => Promise<void>,
@@ -14,6 +15,7 @@ export function UserAuthOtpForm({ className, signInUserOtp, ...props }: UserAuth
   const emailOtpRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [waitMsg, setWaitMsg] = useState<string>('');
 
   async function onSubmit(event: SyntheticEvent) {
     event.preventDefault()
@@ -31,7 +33,8 @@ export function UserAuthOtpForm({ className, signInUserOtp, ...props }: UserAuth
         console.log('Unexpected error', error);
       }
     }
-    setIsLoading(false)
+
+    setWaitMsg('Please check your email for magic OTP link!')
   }
 
   return (
@@ -54,13 +57,14 @@ export function UserAuthOtpForm({ className, signInUserOtp, ...props }: UserAuth
             />
           </div>
           <Button disabled={isLoading}>
-            {isLoading && (
+            {isLoading && 0 === waitMsg.length && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
             Sign in with OTP
           </Button>
           <div className="h-20">
             {errorMsg.length > 0 && AlertError({ title: 'Error', description: errorMsg })}
+            {waitMsg.length > 0 && AlertDefault({ title: 'Information', description: waitMsg })}
           </div>
         </div>
       </form>
