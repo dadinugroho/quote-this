@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }: AuthProps) => {
     session,
     user,
     signIn: (email: string, password: string) => supabaseClient.auth.signInWithPassword({ email, password }),
+    signInOtp: (email: string) => supabaseClient.auth.signInWithOtp({ email }),
     signOut: () => supabaseClient.auth.signOut(),
   };
 
